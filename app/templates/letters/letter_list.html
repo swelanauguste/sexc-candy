@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+Correspondence
+{% endblock head_title %}
+
+{% block content %}
+<div class="p-5">
+    <h1>Correspondence</h1>
+    <hr><br>
+    <div class="col-lg-5 mx-auto">
+        <form action=""
+            method="get">
+            <input class="form-control rounded-pill py-3 border-3 border"
+                type="search"
+                name="letters"
+                id="id_letters_search"
+                placeholder="Search">
+        </form>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col shadow p-3 rounded-4 table-responsive me-2">
+            <table class="table table-sm small table-hover table-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">EDRMS ID</th>
+                        <th scope="col">Received</th>
+                        <th scope="col">Received from</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Add comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for letter in letters %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a title="{{letter.edrms_id}}"
+                                href="{% url 'letter-detail' letter.edrms_id %}">{{letter.edrms_id|slice:'-8:'}}</a>
+                        </td>
+                        <td>{{letter.date_received}}</td>
+                        <td title="{{letter.rec_from}}">{{letter.rec_from|truncatechars:50}}
+                        </td>
+                        <td title="{{letter.subject}}">
+                            {{letter.subject|truncatechars:50}}</td>
+                        <td class="text-center"><a title="add comment" class="text-dark"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal{{letter.pk}}"
+                                href="#"><span
+                                    class="material-symbols-outlined">
+                                    add_circle
+                                </span></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-2 p-3 shadow rounded-4">
+            <h1>Form</h1>
+            <hr>
+            <form action="{% url 'letter-create' %}"
+                method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <div class="d-grid">
+                    <button class="border-0 bg-white"
+                        type="submit"><span
+                        class="material-symbols-outlined fs-1">
+                        add_circle
+                    </span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% for letter in letters %}
+
+<!-- Modal -->
+<div class="modal fade"
+    id="exampleModal{{letter.pk}}"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"
+                    id="exampleModalLabel">Add comment</h1>
+                <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form action="{% url 'add-comment' letter.pk %}"
+                method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{comment_form|crispy}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit"
+                        class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    $("#id_rec_from").select2();
+    $("#id_sent_to").select2();
+    $("#id_copied_to").select2();
+</script>
+{% endblock content %}

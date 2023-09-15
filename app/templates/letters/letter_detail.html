@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block head_title %}
+{{letter.edrms_id|upper}}
+{% endblock head_title %}
+
+
+
+{% block content %}
+<div class="m-3">
+    <a href="/"><span class="material-symbols-outlined fs-1 text-dark">
+            home
+        </span></a>
+</div>
+<div class="p-3">
+    <div class="row">
+        <h1 class="px-5">{{letter.edrms_id|upper}}</h1>
+        <hr>
+        <div class="shadow p-5 rounded-4 col-lg-4 m-5"
+            style="height: fit-content;">
+            <span class="text-muted">Dated:</span><br>
+            <span>{{letter.date_on_doc}}</span>
+            <br><br>
+            <span class="text-muted">Received:</span><br>
+            <span>{{letter.date_received}}</span>
+            <br><br>
+            <span class="text-muted">To:</span><br>
+            <span>{{letter.sent_to}}</span>
+            <br><br>
+            <span class="text-muted">Copied:</span><br>
+            <span>
+                {% for cp in letter.copied_to.all %}
+                {{cp}}
+                {% endfor %}
+            </span>
+            <br><br>
+            <span class="text-muted">Subject:</span><br>
+            <span>{{letter.subject}}</span>
+        </div>
+        <div class="col-lg-3 shadow rounded-4 p-5 my-5"
+            style="height: fit-content;">
+            <h3>Comments</h3>
+            <hr><br>
+            {% for comment in letter.letter_comments.all %}
+            <p class="py-2 px-3 rounded-4 border border-dark bg-secondary bg-opacity-10 small">
+                {{comment.comment}}</p>
+            {% empty %}
+            <p class="text-center">No comments</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
