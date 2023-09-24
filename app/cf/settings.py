@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "request",
+    "minio_storage",
     "users",
     "letters",
 ]
@@ -227,9 +228,9 @@ MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
 MINIO_STORAGE_USE_HTTPS = True
 MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
-MINIO_STORAGE_MEDIA_BUCKET_NAME = 'dps-sec-1-mediafiles'
-MINIO_STORAGE_MEDIA_BACKUP_BUCKET = 'Recycle Bin'
-MINIO_STORAGE_MEDIA_BACKUP_FORMAT = '%c/'
+MINIO_STORAGE_MEDIA_BUCKET_NAME = "dps-sec-1-mediafiles"
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
+MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
 MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_STATIC_BUCKET_NAME = 'dps-sec-1-staticfiles'
+MINIO_STORAGE_STATIC_BUCKET_NAME = "dps-sec-1-staticfiles"
 MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
