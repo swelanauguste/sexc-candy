@@ -3,10 +3,10 @@ version: '3.8'
 services:
   web:
     build: ./app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn cf.wsgi:application --bind 0.0.0.0:8011
     volumes:
       - ./app/:/usr/src/app/
     ports:
-      - 8000:8000
+      - 8011:8011
     env_file:
       - ./.env
