@@ -45,7 +45,9 @@ class Profile(models.Model):
         return reverse("profile", kwargs={"slug": self.slug})
 
     def get_profile_initials(self):
-        return f"{self.first_name[0]} {self.last_name[0]}"
+        if self.first_name and self.last_name:
+            return f"{self.first_name[0]} {self.last_name[0]}"
+        return self.user.email[0]
 
     def __str__(self) -> str:
         if self.first_name and self.last_name:

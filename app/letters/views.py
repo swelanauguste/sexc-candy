@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -6,6 +7,7 @@ from .forms import LetterCommentCreateForm, LetterCreateForm
 from .models import Correspondence, Letter, LetterComment
 
 
+@login_required
 def letter_list_view(request):
     """
     List all letters.
@@ -28,6 +30,7 @@ def letter_list_view(request):
     )
 
 
+@login_required
 def letter_create_view(request):
     """
     Create a new letter.
@@ -44,14 +47,12 @@ def letter_create_view(request):
             return redirect("letter-list")
     else:
         form = LetterCreateForm()
-        return render(
-        request, "letters/letter_list.html", {"form": form}
-    )
+        return render(request, "letters/letter_list.html", {"form": form})
     return render(
-        request, "letters/letter_list.html", {"form": form, 'letters': letters}
+        request, "letters/letter_list.html", {"form": form, "letters": letters}
     )
 
-
+@login_required
 def letter_detail_view(request, letter_id):
     """
     Show a letter.
@@ -65,6 +66,7 @@ def letter_detail_view(request, letter_id):
     )
 
 
+@login_required
 def letter_comment_create_view(request, pk):
     letter = get_object_or_404(Letter, pk=pk)
     if request.method == "POST":

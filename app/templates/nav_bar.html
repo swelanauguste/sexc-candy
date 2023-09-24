@@ -1,0 +1,34 @@
+<div class="container">
+    <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <svg class="bi me-2"
+                width="40"
+                height="32">
+            </svg>
+            <span class="fs-4">Correspondence </span>
+        </a>
+        {% if request.user.is_authenticated %}
+        <div class="dropdown text-end">
+            <a href="#"
+                class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <span class="rounded-circle bg-info py-1 px-2 border"
+                   >{{request.user.profile.get_profile_initials|upper}}</span>
+            </a>
+            <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item"
+                        href="{% url 'account_logout' %}">Sign out</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item"
+                    href="{% url 'account_login' %}">Sign in</a></li>
+        </ul>
+        {% endif %}
+
+    </header>
+</div>

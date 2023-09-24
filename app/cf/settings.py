@@ -1,6 +1,11 @@
 import os
 from pathlib import Path
 
+from dotenv import dotenv_values, load_dotenv
+
+load_dotenv()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,11 +22,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # DEBUG = True
 DEBUG = bool(os.environ.get("DEBUG", default=0))
 
+
 # ALLOWED_HOSTS = ["localhost", "dps-secretary.kingship.info"]
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
-CSRF_TRUSTED_ORIGINS = ["https://dps-secretary.kingship.info"]
-
+CSRF_TRUSTED_ORIGINS = [os.environ.get("CSRF_TRUSTED_ORIGINS")]
 
 # Application definition
 
@@ -178,7 +183,7 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
-# LOGIN_REDIRECT_URL = "cheque-list"
+LOGIN_REDIRECT_URL = "letter-list"
 LOGIN_URL = "/accounts/login/"
 LOGOUT_URL = "/accounts/login/"
 
