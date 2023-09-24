@@ -1,10 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import LetterCommentCreateForm, LetterCreateForm
 from .models import Correspondence, Letter, LetterComment
+
+
+def my_custom_page_not_found_view(request, exception):
+    return render(request, "404.html", status=404)
 
 
 @login_required
@@ -52,6 +57,7 @@ def letter_create_view(request):
         request, "letters/letter_list.html", {"form": form, "letters": letters}
     )
 
+
 @login_required
 def letter_detail_view(request, letter_id):
     """
@@ -77,7 +83,7 @@ def letter_comment_create_view(request, pk):
             comment.save()
             messages.success(
                 request,
-                f"comment was added.",
+                f"Your comment was added.",
             )
             return redirect("letter-list")
     else:

@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
-
+{% load humanize %}
 {% block head_title %}
 Correspondence
 {% endblock head_title %}
 
 {% block content %}
 <div class="p-5">
-    <div class="col-lg-5 mx-auto">
+    <div class="col-lg-6 mx-auto">
         <form action=""
             method="get">
             <input class="form-control rounded-pill py-3 border-3 border"
@@ -19,9 +19,73 @@ Correspondence
         </form>
     </div>
     <br>
+    <br>
+    <div class="d-flex justify-content-center">
+        <div class="mx-5 px-5 py-3 shadow rounded-4 col-lg-4"
+            style="height: fit-content;">
+            <h1>Form</h1>
+            <hr>
+            <form action="{% url 'letter-create' %}"
+                method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <div class="d-grid">
+                    <button class="btn btn-outline-dark"
+                        type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            {% for letter in letters %}
+            <div class="p-5 mb-3 rounded-4 border border-2 shadow">
+                <p class="p-0 m-0 small text=muted text-end mx-3">Rec'd:
+                    {{letter.date_received}}
+                </p>
+                <hr>
+                <p><a class="text-dark h4"
+                    href="{% url 'letter-detail' letter.edrms_id %}">EDRMS ID:
+                    {{letter}}</a></p>
+                <p>Dated: <br>{{letter.date_on_doc}}</p>
+                <p>Subject: <br>{{letter.subject}}</p>
+                <p>From: <br>{{letter.rec_from}}</p>
+                <p>To: <br>{{letter.sent_to}}</p>
+                <p>Cc'ed': <br> {% for cc in letter.copied_to.all %}
+                    <span>{% if forloop.last %} {{cc}}. {% else %} {{cc}};
+                        {% endif %}</span>
+                    {% endfor%}
+                </p>
+                <p>Action: <br>{{letter.action}}</p>
+                <hr>
+                <div class="d-flex justify-content-start">
+                    <p>Last comment: </p><a title="add comment"
+                        class="text-dark"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal{{letter.pk}}"
+                        href="#"><span class="material-symbols-outlined mx-3">
+                            add_circle
+                        </span></a>
+                </div>
+                
+                {% if  letter.letter_comments.first %}
+                <div class="mx-3 bg-secondary bg-opacity-50 rounded-4 p-3 col-lg-8 mx-auto shadow" >
+                    <p class="">
+                {{letter.letter_comments.first.comment}}
+                    </p>
+                    <div class="text-end">
+                    <small class="text-muted small mx-2">
+                        {{letter.letter_comments.first.created|naturaltime}}</small>
+                </div>
+                </div>
+                {% endif %}
+                    
+               
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
-    <div class="row">
-        <div class="col shadow p-3 rounded-4 table-responsive me-2">
+<!-- <div class="col shadow p-3 rounded-4 table-responsive me-2">
             <table class="table table-sm small table-hover table-secondary">
                 <thead>
                     <tr>
@@ -41,11 +105,13 @@ Correspondence
                                 href="{% url 'letter-detail' letter.edrms_id %}">{{letter.edrms_id|slice:'-8:'}}</a>
                         </td>
                         <td>{{letter.date_received}}</td>
-                        <td title="{{letter.rec_from}}">{{letter.rec_from|truncatechars:50}}
+                        <td title="{{letter.rec_from}}">
+                            {{letter.rec_from|truncatechars:50}}
                         </td>
                         <td title="{{letter.subject}}">
                             {{letter.subject|truncatechars:50}}</td>
-                        <td class="text-center"><a title="add comment" class="text-dark"
+                        <td class="text-center"><a title="add comment"
+                                class="text-dark"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal{{letter.pk}}"
                                 href="#"><span
@@ -56,25 +122,9 @@ Correspondence
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        <div class="col-lg-2 p-3 shadow rounded-4">
-            <h1>Form</h1>
-            <hr>
-            <form action="{% url 'letter-create' %}"
-                method="post">
-                {% csrf_token %}
-                {{form|crispy}}
-                <div class="d-grid">
-                    <button class="border-0 bg-white"
-                        type="submit"><span
-                        class="material-symbols-outlined fs-1">
-                        add_circle
-                    </span></button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+        </div> -->
+
+
 
 {% for letter in letters %}
 
