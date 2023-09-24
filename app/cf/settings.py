@@ -19,9 +19,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEBUG")
-print(DEBUG)
+DEBUG = False
 
 
 # ALLOWED_HOSTS = ["localhost", "dps-secretary.kingship.info"]
@@ -220,3 +218,18 @@ LOGGING = {
         },
     },
 }
+
+
+DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
+STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
+MINIO_STORAGE_ENDPOINT = os.environ.get("MINIO_STORAGE_ENDPOINT")
+MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
+MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
+MINIO_STORAGE_USE_HTTPS = True
+MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
+MINIO_STORAGE_MEDIA_BUCKET_NAME = 'dps-sec-1-mediafiles'
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = 'Recycle Bin'
+MINIO_STORAGE_MEDIA_BACKUP_FORMAT = '%c/'
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+MINIO_STORAGE_STATIC_BUCKET_NAME = 'dps-sec-1-staticfiles'
+MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
