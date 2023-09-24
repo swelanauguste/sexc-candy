@@ -19,13 +19,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # ALLOWED_HOSTS = ["localhost", "dps-secretary.kingship.info"]
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
-CSRF_TRUSTED_ORIGINS = [os.environ.get("CSRF_TRUSTED_ORIGINS")]
+CSRF_TRUSTED_ORIGINS = ["https://dps-secretary.kingship.info"]
 
 # Application definition
 
@@ -187,6 +187,21 @@ LOGIN_REDIRECT_URL = "letter-list"
 LOGIN_URL = "/accounts/login/"
 LOGOUT_URL = "/accounts/login/"
 
+
+DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
+STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+MINIO_STORAGE_ENDPOINT = os.environ.get("MINIO_STORAGE_ENDPOINT")
+MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
+MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
+MINIO_STORAGE_USE_HTTPS = False
+MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
+MINIO_STORAGE_MEDIA_BUCKET_NAME = "dps-sec-1-mediafiles"
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
+MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+MINIO_STORAGE_STATIC_BUCKET_NAME = "dps-sec-1-staticfiles"
+MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+
 REQUEST_IGNORE_PATHS = (r"^admin/",)
 
 REQUEST_PLUGINS = (
@@ -221,16 +236,3 @@ LOGGING = {
 }
 
 
-DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
-STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
-MINIO_STORAGE_ENDPOINT = os.environ.get("MINIO_STORAGE_ENDPOINT")
-MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
-MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
-MINIO_STORAGE_USE_HTTPS = False
-MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
-MINIO_STORAGE_MEDIA_BUCKET_NAME = "dps-sec-1-mediafiles"
-MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
-MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
-MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_STATIC_BUCKET_NAME = "dps-sec-1-staticfiles"
-MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
