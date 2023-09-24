@@ -10,13 +10,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-%j=_6#)m33j*+s$t)8h)cva^_imy&urjj$#6n+iq2e0xdvtdlz"
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ["localhost", "sexc-candy.kingship.info"]
+ALLOWED_HOSTS = ["localhost", "dps-secretary.kingship.info"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-CSRF_TRUSTED_ORIGINS = ["https://sexc-candy.kingship.info"]
+CSRF_TRUSTED_ORIGINS = ["https://dps-secretary.kingship.info"]
 
 
 # Application definition
