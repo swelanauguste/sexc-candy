@@ -3,11 +3,14 @@ version: '3.8'
 services:
   web:
     build: ./app
-    # command: gunicorn cf.wsgi:application --bind 0.0.0.0:8011
-    command: python manage.py runserver 0.0.0.0:8011
+    command: gunicorn cf.wsgi:application --bind 0.0.0.0:8011
     volumes:
       - ./app/:/usr/src/app/
+      - static_volume:/home/app/web/staticfiles
     ports:
       - 8011:8011
     env_file:
       - ./.env
+
+volumes:
+  static_volume:
