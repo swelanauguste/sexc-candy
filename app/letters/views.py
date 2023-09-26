@@ -3,9 +3,22 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .forms import LetterCommentCreateForm, LetterCreateForm
-from .models import Correspondence, Letter, LetterComment
+from .models import Action, Correspondence, Letter, LetterComment
+
+
+class ActionCreateView(CreateView):
+    model = Action
+    fields = ["name"]
+    success_url = "/"
+
+
+class CorrespondenceCreateView(CreateView):
+    model = Correspondence
+    fields = ["name"]
+    success_url = "/"
 
 
 def my_custom_page_not_found_view(request, exception):

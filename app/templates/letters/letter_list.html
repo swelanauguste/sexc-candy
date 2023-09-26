@@ -7,7 +7,7 @@ Correspondence
 {% endblock head_title %}
 
 {% block content %}
-<div class="p-5">
+<div class="p-lg-5">
     <div class="col-lg-6 mx-auto">
         <form action=""
             method="get">
@@ -20,8 +20,8 @@ Correspondence
     </div>
     <br>
     <br>
-    <div class="d-flex justify-content-center">
-        <div class="mx-5 px-5 py-3 shadow rounded-4 col-lg-4"
+    <div class="row">
+        <div class="mx-lg-5 mb-3 px-5 py-3 shadow rounded-4 col-lg-4"
             style="height: fit-content;">
             <h1>Form</h1>
             <hr>
@@ -34,6 +34,15 @@ Correspondence
                         type="submit">Submit</button>
                 </div>
             </form>
+            <br>
+            <hr>
+            <div class="d-flex justify-content-between"><a
+                    class="text-dark mx-3"
+                    href="{% url 'action-create' %}">Add action</a> <a
+                    class="text-dark mx-3"
+                    href="{% url 'correspondence-create' %}">Add
+                    Correspondent</a></div>
+                    <br>
         </div>
         <div class="col-lg-6">
             {% for letter in letters %}
@@ -43,8 +52,9 @@ Correspondence
                 </p>
                 <hr>
                 <p><a class="text-dark h4"
-                    href="{% url 'letter-detail' letter.edrms_id %}">EDRMS ID:
-                    {{letter}}</a></p>
+                        href="{% url 'letter-detail' letter.edrms_id %}">EDRMS
+                        ID:
+                        {{letter}}</a></p>
                 <p>Dated: <br>{{letter.date_on_doc}}</p>
                 <p>Subject: <br>{{letter.subject}}</p>
                 <p>From: <br>{{letter.rec_from}}</p>
@@ -56,7 +66,7 @@ Correspondence
                 </p>
                 <p>Action: <br>{{letter.action}}</p>
                 <hr>
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-lg-start">
                     <p>Last comment: </p><a title="add comment"
                         class="text-dark"
                         data-bs-toggle="modal"
@@ -65,65 +75,26 @@ Correspondence
                             add_circle
                         </span></a>
                 </div>
-                
-                {% if  letter.letter_comments.first %}
-                <div class="mx-3 bg-secondary bg-opacity-50 rounded-4 p-3 col-lg-8 mx-auto shadow" >
+
+                {% if letter.letter_comments.first %}
+                <div
+                    class="mx-3 bg-secondary bg-opacity-50 rounded-4 p-3 col-lg-8 mx-auto shadow">
                     <p class="">
-                {{letter.letter_comments.first.comment}}
+                        {{letter.letter_comments.first.comment}}
                     </p>
                     <div class="text-end">
-                    <small class="text-muted small mx-2">
-                        {{letter.letter_comments.first.created|naturaltime}}</small>
-                </div>
+                        <small class="text-muted small mx-2">
+                            {{letter.letter_comments.first.created|naturaltime}}</small>
+                    </div>
                 </div>
                 {% endif %}
-                    
-               
+
+
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
-
-<!-- <div class="col shadow p-3 rounded-4 table-responsive me-2">
-            <table class="table table-sm small table-hover table-secondary">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">EDRMS ID</th>
-                        <th scope="col">Received</th>
-                        <th scope="col">Received from</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Add comment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for letter in letters %}
-                    <tr>
-                        <th scope="row">{{forloop.counter}}</th>
-                        <td><a title="{{letter.edrms_id}}"
-                                href="{% url 'letter-detail' letter.edrms_id %}">{{letter.edrms_id|slice:'-8:'}}</a>
-                        </td>
-                        <td>{{letter.date_received}}</td>
-                        <td title="{{letter.rec_from}}">
-                            {{letter.rec_from|truncatechars:50}}
-                        </td>
-                        <td title="{{letter.subject}}">
-                            {{letter.subject|truncatechars:50}}</td>
-                        <td class="text-center"><a title="add comment"
-                                class="text-dark"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal{{letter.pk}}"
-                                href="#"><span
-                                    class="material-symbols-outlined">
-                                    add_circle
-                                </span></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div> -->
-
 
 
 {% for letter in letters %}

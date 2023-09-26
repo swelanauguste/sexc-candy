@@ -3,10 +3,6 @@
         class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/"
             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <svg class="bi me-2"
-                width="40"
-                height="32">
-            </svg>
             <span class="fs-4">Correspondence </span>
         </a>
         {% if request.user.is_authenticated %}
@@ -15,10 +11,12 @@
                 class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
-                <span class="rounded-circle bg-info py-1 px-2 border"
+                <span class="rounded-circle bg-info py-1 px-2 border ms-5"
                    >{{request.user.profile.get_profile_initials|upper}}</span>
             </a>
             <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item"
+                        href="{% url 'account_logout' %}">Add Correspondent</a></li>
                 <li><a class="dropdown-item"
                         href="{% url 'account_logout' %}">Sign out</a></li>
             </ul>

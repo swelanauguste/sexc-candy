@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+Add
+{% endblock head_title %}
+
+
+{% block content %}
+<div class="container py-5">
+    <h1>Add Correspondent</h1>
+    <hr>
+    <div class="col-lg-6 shadow p-5 rounded-4 mx-auto">
+        <form action=""
+            method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button class="btn btn-outline-dark" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $("#id_rec_from").select2();
+    $("#id_sent_to").select2();
+    $("#id_copied_to").select2();
+</script>
+{% endblock scripts %}

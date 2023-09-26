@@ -51,7 +51,7 @@ class Letter(models.Model):
     updated_by = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="updated_by_list", null=True
     )
-    
+
     class meta:
         ordering = ["-date_received"]
 
@@ -67,10 +67,16 @@ class LetterComment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="comment_created_by_list", null=True
+        User,
+        on_delete=models.PROTECT,
+        related_name="comment_created_by_list",
+        null=True,
     )
     updated_by = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="comment_updated_by_list", null=True
+        User,
+        on_delete=models.PROTECT,
+        related_name="comment_updated_by_list",
+        null=True,
     )
 
     class Meta:
