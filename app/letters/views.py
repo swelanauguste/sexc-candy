@@ -14,9 +14,8 @@ from django.views.generic import (
 from .forms import LetterCommentCreateForm, LetterCreateForm
 from .models import Action, Correspondence, Letter, LetterComment
 
-
-class HomeView(TemplateView):
-    template_name = "home.html"
+# class HomeView(TemplateView):
+#     template_name = "home.html"
 
 
 class ActionCreateView(CreateView):

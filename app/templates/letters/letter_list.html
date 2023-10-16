@@ -52,7 +52,7 @@ Correspondence
                 </p>
                 <hr>
                 <p><a class="text-dark h4"
-                        href="{% url 'letter-detail' letter.edrms_id %}">EDRMS
+                        href="{% url 'letter-detail' letter.slug %}">EDRMS
                         ID:
                         {{letter}}</a></p>
                 <p>Dated: <br>{{letter.date_on_doc}}</p>
@@ -88,9 +88,9 @@ Correspondence
                     </div>
                 </div>
                 {% endif %}
-
-
             </div>
+            {% empty %}
+            <p class="text-center h3">No letters yet</p>
             {% endfor %}
         </div>
     </div>

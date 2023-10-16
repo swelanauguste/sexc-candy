@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
 
 User = settings.AUTH_USER_MODEL
 
@@ -20,6 +21,7 @@ class Action(models.Model):
 
 class Letter(models.Model):
     edrms_id = models.CharField("EDRMS ID", max_length=50, unique=True)
+    slug = models.CharField(max_length=50, unique=True, blank=True, null=True)
     subject = models.TextField()
     date_on_doc = models.DateField("date on document")
     date_received = models.DateField()
@@ -54,6 +56,14 @@ class Letter(models.Model):
 
     class meta:
         ordering = ["-date_received"]
+
+    def get_absolute_url(self):
+        return reverse("letter-detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.uid)
+        super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.edrms_id
