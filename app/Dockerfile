@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:slim-bookworm
+FROM python:bullseye
 
 # set work directory
 WORKDIR /usr/src/app
