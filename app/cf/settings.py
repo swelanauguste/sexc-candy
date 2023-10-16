@@ -14,16 +14,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-%j=_6#)m33j*+s$t)8h)cva^_imy&urjj$#6n+iq2e0xdvtdlz"
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "django-insecure-%j=_6#)m33j*+s$t)8h)cva^_imy&urjj$#6n+iq2e0xdvtdlz"
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-# ALLOWED_HOSTS = ["localhost", "dps-secretary.kingship.info"]
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ["localhost", "dps-secretary.kingship.info"]
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 CSRF_TRUSTED_ORIGINS = ["https://dps-secretary.kingship.info"]
 
@@ -183,24 +183,24 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
-LOGIN_REDIRECT_URL = "letter-list"
+LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/login/"
 LOGOUT_URL = "/accounts/login/"
 
 
-DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
-STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
-MINIO_STORAGE_ENDPOINT = os.environ.get("MINIO_STORAGE_ENDPOINT")
-MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
-MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
-MINIO_STORAGE_USE_HTTPS = True
-MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
-MINIO_STORAGE_MEDIA_BUCKET_NAME = "dps-sec-1-mediafiles"
-MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
-MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
-MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_STATIC_BUCKET_NAME = "dps-sec-1-staticfiles"
-MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+# DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
+# STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+# MINIO_STORAGE_ENDPOINT = os.environ.get("MINIO_STORAGE_ENDPOINT")
+# MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
+# MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
+# MINIO_STORAGE_USE_HTTPS = True
+# MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
+# MINIO_STORAGE_MEDIA_BUCKET_NAME = "dps-sec-1-mediafiles"
+# MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
+# MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
+# MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+# MINIO_STORAGE_STATIC_BUCKET_NAME = "dps-sec-1-staticfiles"
+# MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 
 REQUEST_IGNORE_PATHS = (r"^admin/",)
 

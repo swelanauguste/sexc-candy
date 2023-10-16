@@ -3,10 +3,20 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
 from .forms import LetterCommentCreateForm, LetterCreateForm
 from .models import Action, Correspondence, Letter, LetterComment
+
+
+class HomeView(TemplateView):
+    template_name = "home.html"
 
 
 class ActionCreateView(CreateView):
