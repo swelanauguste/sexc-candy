@@ -81,11 +81,11 @@ def letter_create_view(request):
 
 
 @login_required
-def letter_detail_view(request, letter_id):
+def letter_detail_view(request, slug):
     """
     Show a letter.
     """
-    letter = Letter.objects.get(edrms_id=letter_id)
+    letter = Letter.objects.get(slug=slug)
     # comments = LetterComments.objects.filter(letter=letter)
     return render(
         request,
@@ -95,8 +95,8 @@ def letter_detail_view(request, letter_id):
 
 
 @login_required
-def letter_comment_create_view(request, pk):
-    letter = get_object_or_404(Letter, pk=pk)
+def letter_comment_create_view(request, slug):
+    letter = get_object_or_404(Letter, slug=slug)
     if request.method == "POST":
         form = LetterCommentCreateForm(request.POST)
         if form.is_valid():

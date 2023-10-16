@@ -62,8 +62,8 @@ class Letter(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.uid)
-        super(Profile, self).save(*args, **kwargs)
+            self.slug = slugify(self.edrms_id)
+        super(Letter, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.edrms_id
