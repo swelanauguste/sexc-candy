@@ -14,7 +14,7 @@ urlpatterns = [
     # path("", HomeView.as_view(), name="home"),
     path("", letter_list_view, name="letter-list"),
     path("create/", letter_create_view, name="letter-create"),
-    path("letter/detail/<slug:slug>/", letter_detail_view, name="letter-detail"),
+    path("letter/detail/<int:pk>/", letter_detail_view, name="letter-detail"),
     path("add/comment/<int:pk>/", letter_comment_create_view, name="add-comment"),
     path("create/action", ActionCreateView.as_view(), name="action-create"),
     path(
