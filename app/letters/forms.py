@@ -7,7 +7,7 @@ class LetterCreateForm(forms.ModelForm):
     class Meta:
         model = Letter
         fields = "__all__"
-        exclude = ['created_by', 'updated_by']
+        exclude = ['created_by', 'updated_by', 'slug']
         widgets = {
             "date_on_doc": forms.TextInput(attrs={"type": "date"}),
             "date_received": forms.TextInput(attrs={"type": "date"}),
