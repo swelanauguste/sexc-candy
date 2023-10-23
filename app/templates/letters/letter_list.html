@@ -115,7 +115,7 @@ Correspondence
                     data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-            <form action="{% url 'add-comment' letter.pk %}"
+            <form action="{% url 'add-comment' letter.slug %}"
                 method="post">
                 {% csrf_token %}
                 <div class="modal-body">
