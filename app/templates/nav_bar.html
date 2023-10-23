@@ -1,6 +1,5 @@
 <div class="container">
-    <header
-        class="d-flex flex-wrap justify-content-center py-3 mb-4">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
         <a href="{% url 'letter-list' %}"
             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-dark fw-bolder">
             <span class="fs-4">Correspondence </span>
@@ -11,8 +10,8 @@
                 class="d-block text-decoration-none dropdown-toggle text-dark fw-bolder"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
-                <span class="rounded-circle bg-info py-1 px-2 border border-4 border-white ms-5"
-                   >{{request.user.profile.get_profile_initials|upper}}</span>
+                <span
+                    class="rounded-circle bg-info py-1 px-2 border border-4 border-white ms-5">{{request.user.profile.get_profile_initials|upper}}</span>
             </a>
             <ul class="dropdown-menu text-small">
                 <li><a class="dropdown-item"
@@ -25,6 +24,5 @@
                     href="{% url 'account_login' %}">Sign in</a></li>
         </ul>
         {% endif %}
-
     </header>
 </div>

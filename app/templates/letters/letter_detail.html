@@ -12,13 +12,13 @@
         <h1 class="text-center">{{letter.edrms_id|upper}}</h1>
         <hr>
         <div class="d-flex justify-content-between small">
-            <span class="text-muted">{{letter.date_on_doc}}</span>
-            <span>{{letter.date_received}}</span>
+            <span class="text-muted">{{letter.dated}}</span>
+            <span>{{letter.received}}</span>
         </div>
         <hr>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-start">
             <span>f: {{letter.rec_from}}</span>
-            <span>t: {{letter.to}}</span>
+            <span class="mx-2">t: {{letter.to}}</span>
             <span>
                 cc:
                 {% for cp in letter.copied.all %}
