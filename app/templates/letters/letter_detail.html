@@ -16,9 +16,9 @@
             <span>{{letter.received}}</span>
         </div>
         <hr>
-        <div class="d-flex justify-content-start">
-            <span>f: {{letter.rec_from}}</span>
-            <span class="mx-2">t: {{letter.to}}</span>
+        <div class="">
+            <span>f: {{letter.rec_from}}</span><br>
+            <span>t: {{letter.to}}</span><br>
             <span>
                 cc:
                 {% for cp in letter.copied.all %}
