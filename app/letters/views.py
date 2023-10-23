@@ -81,11 +81,11 @@ def letter_create_view(request):
 
 
 @login_required
-def letter_detail_view(request, pk):
+def letter_detail_view(request, slug):
     """
     Show a letter.
     """
-    letter = Letter.objects.get(pk=pk)
+    letter = Letter.objects.get(slug=slug)
     # comments = LetterComments.objects.filter(letter=letter)
     return render(
         request,

@@ -59,7 +59,7 @@ class Letter(models.Model):
         ordering = ["-date_received"]
 
     def get_absolute_url(self):
-        return reverse("letter-detail", kwargs={"pk": self.pk})
+        return reverse("letter-detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
