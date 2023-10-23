@@ -8,6 +8,4 @@ services:
       - ./app/:/usr/src/app/
     ports:
       - 8011:8011
-    env_file:
-      - ./.env
     restart: unless-stopped
