@@ -24,21 +24,21 @@ class Letter(models.Model):
     edrms_id = models.CharField("EDRMS ID", max_length=50, unique=True)
     slug = models.CharField(max_length=50, unique=True, blank=True, null=True)
     subject = models.TextField()
-    date_on_doc = models.DateField("date on document")
-    date_received = models.DateField()
+    dated = models.DateField()
+    received = models.DateField()
     rec_from = models.ForeignKey(
         Correspondence,
         on_delete=models.PROTECT,
         related_name="rec_from_list",
         verbose_name="received from",
     )
-    sent_to = models.ForeignKey(
+    to = models.ForeignKey(
         Correspondence,
         on_delete=models.PROTECT,
         related_name="sent_to_list",
         verbose_name="sent to",
     )
-    copied_to = models.ManyToManyField(
+    copied = models.ManyToManyField(
         Correspondence,
         blank=True,
         related_name="copied_to_list",
@@ -60,6 +60,9 @@ class Letter(models.Model):
 
     def get_absolute_url(self):
         return reverse("letter-detail", kwargs={"slug": self.slug})
+
+    def get_update_url(self):
+        return reverse("letter-update", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

@@ -28,6 +28,6 @@ python manage.py createsuperuser --username kingship --email kingship.lc@gmail.c
 # python manage.py add_titles
 
 
-# python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput
 
 exec "$@"

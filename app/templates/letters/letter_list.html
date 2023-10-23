@@ -8,10 +8,11 @@ Correspondence
 
 {% block content %}
 <div class="p-lg-5">
-    <div class="col-lg-6 mx-auto">
+    <div class="col-lg-4 mx-auto">
         <form action=""
             method="get">
-            <input class="form-control rounded-pill py-3 border-3 border"
+            <input
+                class="form-control rounded-pill border-3 border border-warning"
                 type="search"
                 name="letters"
                 id="id_letters_search"
@@ -19,79 +20,74 @@ Correspondence
         </form>
     </div>
     <br>
-    <br>
-    <div class="row">
-        <div class="mx-lg-5 mb-3 px-5 py-3 shadow rounded-4 col-lg-4"
-            style="height: fit-content;">
-            <h1>Form</h1>
-            <hr>
-            <form action="{% url 'letter-create' %}"
-                method="post">
-                {% csrf_token %}
-                {{form|crispy}}
-                <div class="d-grid">
-                    <button class="btn btn-outline-dark"
-                        type="submit">Submit</button>
-                </div>
-            </form>
-            <br>
-            <hr>
-            <div class="d-flex justify-content-between"><a
-                    class="text-dark mx-3"
-                    href="{% url 'action-create' %}">Add action</a> <a
-                    class="text-dark mx-3"
-                    href="{% url 'correspondence-create' %}">Add
-                    Correspondent</a></div>
-                    <br>
-        </div>
-        <div class="col-lg-6">
+    <div class="d-flex justify-content-center">
+        <div class="">
             {% for letter in letters %}
-            <div class="p-5 mb-3 rounded-4 border border-2 shadow">
-                <p class="p-0 m-0 small text=muted text-end mx-3">Rec'd:
-                    {{letter.date_received}}
-                </p>
-                <hr>
-                <p><a class="text-dark h4"
-                        href="{{letter.get_absolute_url}}">EDRMS
-                        ID:
-                        {{letter}}</a></p>
-                <p>Dated: <br>{{letter.date_on_doc}}</p>
-                <p>Subject: <br>{{letter.subject}}</p>
-                <p>From: <br>{{letter.rec_from}}</p>
-                <p>To: <br>{{letter.sent_to}}</p>
-                <p>Cc'ed': <br> {% for cc in letter.copied_to.all %}
-                    <span>{% if forloop.last %} {{cc}}. {% else %} {{cc}};
-                        {% endif %}</span>
-                    {% endfor%}
-                </p>
-                <p>Action: <br>{{letter.action}}</p>
-                <hr>
-                <div class="d-flex justify-content-lg-start">
-                    <p>Last comment: </p><a title="add comment"
-                        class="text-dark"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal{{letter.pk}}"
-                        href="#"><span class="material-symbols-outlined mx-3">
-                            add_circle
-                        </span></a>
-                </div>
+            <div class="col mb-2">
+                <div class="card text-bg-info bg-info rounded-4">
+                    <div
+                        class="card-header d-flex justify-content-between small">
+                        <span title="dated"
+                            class="small text-muted">{{letter.date_on_doc}}</span>
+                        <span title="received"
+                            class="small">{{letter.date_received}}</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 title="from"
+                            class="card-title"><a class="text-dark" href="{{letter.get_absolute_url}}">{{letter.edrms_id|upper}}</a></h5>
+                        <span class="card-text">
+                            {{letter.rec_from|truncatechars:60 }}</span>
+                        <p class="card-text">
+                            {{letter.subject|truncatechars:60 }}</p>
+                        <div class="text-end">
+                            <a class="text-dark"
+                                href="{{letter.get_absolute_url}}">
+                                Details
+                            </a>
+                        </div>
 
-                {% if letter.letter_comments.first %}
-                <div
-                    class="mx-3 bg-secondary bg-opacity-50 rounded-4 p-3 col-lg-8 mx-auto shadow">
-                    <p class="">
-                        {{letter.letter_comments.first.comment}}
-                    </p>
-                    <div class="text-end">
-                        <small class="text-muted small mx-2">
-                            {{letter.letter_comments.first.created|naturaltime}}</small>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-lg-start">
+                            {% if letter.letter_comments.first %}
+                            <span>
+                                {{letter.letter_comments.first.comment|truncatechars:60}}</span>
+                            {% endif %}
+                            <a title="add comment"
+                                class="text-dark"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal{{letter.pk}}"
+                                href="#"><span
+                                    class="material-symbols-outlined fs-4 ms-2">
+                                    add_circle
+                                </span></a>
+                        </div>
                     </div>
                 </div>
-                {% endif %}
             </div>
             {% empty %}
             <p class="text-center h3">No letters yet</p>
             {% endfor %}
+        </div>
+        <div class="ms-5 mb-3 px-3 py-3 col-lg-3 shadow rounded-4 border border-warning bg-info"
+            style="height: fit-content;">
+            <form action="{% url 'letter-create' %}"
+                method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <hr>
+                <div class="d-grid">
+                    <button class="btn btn-dark"
+                        type="submit">Submit</button>
+                </div>
+            </form><br>
+            <div class="d-flex justify-content-evenly small"><a
+                    class="text-dark small"
+                    href="{% url 'action-create' %}">Add action</a> <a
+                    class="text-dark small"
+                    href="{% url 'correspondence-create' %}">Add
+                    Correspondent</a></div>
+            <br>
         </div>
     </div>
 </div>
@@ -141,3 +137,4 @@ Correspondence
     $("#id_copied_to").select2();
 </script>
 {% endblock content %}
+

@@ -1,5 +1,5 @@
 # Use the official Python 3.8 image as the base
-FROM python:3.8
+FROM python:3.13-rc-bookworm
 
 # Install libffi-dev to fix compilation issues
 # RUN apt-get update && \

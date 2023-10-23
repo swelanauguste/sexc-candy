@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
@@ -11,20 +13,20 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import LetterCommentCreateForm, LetterCreateForm
+from .forms import LetterCommentCreateForm, LetterCreateForm, LetterUpdateForm
 from .models import Action, Correspondence, Letter, LetterComment
 
 # class HomeView(TemplateView):
 #     template_name = "home.html"
 
 
-class ActionCreateView(CreateView):
+class ActionCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Action
     fields = ["name"]
     success_url = "/"
 
 
-class CorrespondenceCreateView(CreateView):
+class CorrespondenceCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Correspondence
     fields = ["name"]
     success_url = "/"
@@ -78,6 +80,13 @@ def letter_create_view(request):
     return render(
         request, "letters/letter_list.html", {"form": form, "letters": letters}
     )
+
+
+class LetterUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Letter
+    form_class = LetterUpdateForm
+    success_message = "Updated"
+    template_name_suffix = "_update_form"
 
 
 @login_required

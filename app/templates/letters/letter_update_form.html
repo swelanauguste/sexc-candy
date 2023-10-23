@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+{{object}}
+{% endblock head_title %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="mx-auto mb-3 px-5 py-3 shadow rounded-4 col-lg-5"
+    style="height: fit-content;">
+    <h1>Form</h1>
+    <hr>
+    <form action="{{object.get_update_url}}"
+        method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="d-grid">
+            <button class="btn btn-outline-dark"
+                type="submit">Submit</button>
+        </div>
+    </form>
+    <br>
+    <hr>
+  
+            <br>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $("#id_rec_from").select2();
+    $("#id_sent_to").select2();
+    $("#id_copied_to").select2();
+</script>
+{% endblock scripts %}
