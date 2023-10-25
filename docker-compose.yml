@@ -10,3 +10,5 @@ services:
     ports:
       - 8011:8011
     restart: unless-stopped
+    env_file:
+      - ./.env
