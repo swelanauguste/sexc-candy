@@ -7,35 +7,92 @@ Correspondence
 {% endblock head_title %}
 
 {% block content %}
-<div class="p-lg-5">
-    <div class="col-lg-4 mx-auto">
-        <form action=""
-            method="get">
-            <input
-                class="form-control rounded-pill border-3 border border-warning"
-                type="search"
-                name="letters"
-                id="id_letters_search"
-                placeholder="Search">
-        </form>
-    </div>
-    <br>
-    <div class="d-flex justify-content-center">
-        <div class="">
+<div class="container mt-3">
+    <div class="d-lg-flex d-md-flex justify-content-between">
+        <div class="me-lg-5 me-md-4 px-3 pt-3 col-md-6 col-lg-3 col-sm-12 rounded-4 small"
+            style="height: fit-content;">
+            <form action="{% url 'letter-create' %}"
+                method="post">
+                {% csrf_token %}
+                <!-- {{form|crispy}} -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form.edrms_id|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form.subject|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form.dated|as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form.received|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form.rec_from|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form.to|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form.copied|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form.action|as_crispy_field }}
+                    </div>
+                </div>
+                <hr>
+                <div class="d-grid">
+                    <button class="btn btn-dark"
+                        type="submit">Submit</button>
+                </div>
+            </form><br>
+            <div class="d-flex justify-content-evenly"><a
+                    class="text-dark small"
+                    href="{% url 'action-create' %}"><span
+                        class="material-symbols-outlined">
+                        select_check_box
+                    </span></a>
+                <a class="text-dark small"
+                    href="{% url 'correspondence-create' %}"><span
+                        class="material-symbols-outlined">
+                        person_add
+                    </span></a>
+            </div>
+            <br>
+        </div>
+        <div class="col mb-5"
+            style="height: 50rem;overflow-y:scroll;">
             {% for letter in letters %}
-            <div class="col mb-2">
-                <div class="card text-bg-info bg-info rounded-4">
+                <div class="col-lg-10 mb-4 shadow mx-auto p-3 rounded-4"
+                    style="background-color: pink;">
                     <div
-                        class="card-header d-flex justify-content-between small">
+                        class="card-header d-flex justify-content-between small border-danger">
                         <span title="dated"
-                            class="small text-muted">{{letter.date_on_doc}}</span>
+                            class="small text-muted">{{letter.dated}}</span>
                         <span title="received"
-                            class="small">{{letter.date_received}}</span>
+                            class="small">{{letter.received}}</span>
                     </div>
                     <div class="card-body">
-                        <h5 title="from"
-                            class="card-title"><a class="text-dark" href="{{letter.get_absolute_url}}">{{letter.edrms_id|upper}}</a></h5>
-                        <span class="card-text">
+                        <h5 title="EDRMS ID"
+                            class="card-title"><a class="text-dark"
+                                href="{{letter.get_absolute_url}}">{{letter.edrms_id|upper}}</a>
+                        </h5>
+                        <span title="from"
+                            class="card-text">
                             {{letter.rec_from|truncatechars:60 }}</span>
                         <p class="card-text">
                             {{letter.subject|truncatechars:60 }}</p>
@@ -45,9 +102,9 @@ Correspondence
                                 Details
                             </a>
                         </div>
-
+                        <br>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer border-danger">
                         <div class="d-flex justify-content-lg-start">
                             {% if letter.letter_comments.first %}
                             <span>
@@ -64,45 +121,22 @@ Correspondence
                         </div>
                     </div>
                 </div>
-            </div>
             {% empty %}
-            <p class="text-center h3">No letters yet</p>
+            <p class="text-center h2">Nothing</p>
             {% endfor %}
-        </div>
-        <div class="ms-5 mb-3 px-3 py-3 col-lg-3 shadow rounded-4 border border-warning bg-info"
-            style="height: fit-content;">
-            <form action="{% url 'letter-create' %}"
-                method="post">
-                {% csrf_token %}
-                {{form|crispy}}
-                <hr>
-                <div class="d-grid">
-                    <button class="btn btn-dark"
-                        type="submit">Submit</button>
-                </div>
-            </form><br>
-            <div class="d-flex justify-content-evenly small"><a
-                    class="text-dark small"
-                    href="{% url 'action-create' %}">Add action</a> <a
-                    class="text-dark small"
-                    href="{% url 'correspondence-create' %}">Add
-                    Correspondent</a></div>
-            <br>
         </div>
     </div>
 </div>
-
-
 {% for letter in letters %}
-
 <!-- Modal -->
-<div class="modal fade"
+<div class="modal fade bg-danger bg-opacity-10"
     id="exampleModal{{letter.pk}}"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content"
+            style="background-color: pink;">
             <div class="modal-header">
                 <h1 class="modal-title fs-5"
                     id="exampleModalLabel">Add comment</h1>
@@ -135,6 +169,7 @@ Correspondence
     $("#id_rec_from").select2();
     $("#id_to").select2();
     $("#id_copied").select2();
+    $(".form-control").addClass("form-control-sm rounded-4");
+    $(".form-select").addClass("form-control-sm rounded-4");
 </script>
 {% endblock content %}
-

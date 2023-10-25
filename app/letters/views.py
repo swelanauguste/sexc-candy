@@ -47,7 +47,7 @@ def letter_list_view(request):
     if query:
         letters = Letter.objects.filter(
             Q(edrms_id__icontains=query)
-            | Q(sent_to__name__icontains=query)
+            | Q(to__name__icontains=query)
             | Q(subject__icontains=query)
         ).distinct()
     else:
