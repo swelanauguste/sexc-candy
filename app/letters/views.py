@@ -69,6 +69,8 @@ def letter_create_view(request):
         form = LetterCreateForm(request.POST)
         if form.is_valid():
             letter = form.save()
+            letter.created_by = request.user
+            letter.updated_by = request.user
             messages.success(
                 request,
                 f"{letter.edrms_id} was added.",
@@ -87,6 +89,10 @@ class LetterUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = LetterUpdateForm
     success_message = "Updated"
     template_name_suffix = "_update_form"
+    
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 @login_required
@@ -112,6 +118,8 @@ def letter_comment_create_view(request, slug):
             comment = form.save(commit=False)
             comment.letter = letter
             comment.save()
+            comment.created_by = request.user
+            comment.updated_by = request.user
             messages.success(
                 request,
                 f"Your comment was added.",
