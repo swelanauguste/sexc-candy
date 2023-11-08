@@ -13,11 +13,31 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import LetterCommentCreateForm, LetterCreateForm, LetterUpdateForm
+from .forms import (
+    LetterCommentCreateForm,
+    LetterCommentUpdateForm,
+    LetterCreateForm,
+    LetterUpdateForm,
+)
 from .models import Action, Correspondence, Letter, LetterComment
 
 # class HomeView(TemplateView):
 #     template_name = "home.html"
+
+
+class LetterCommentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = LetterComment
+    fields = ["comment"]
+    success_message = "Updated"
+    # template_name_suffix = "_update_form"
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        comment = LetterComment.objects.get(pk=self.kwargs["pk"])
+        return comment.letter.get_absolute_url()
 
 
 class ActionCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -89,7 +109,7 @@ class LetterUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = LetterUpdateForm
     success_message = "Updated"
     template_name_suffix = "_update_form"
-    
+
     def form_valid(self, form):
         form.instance.updated_by = self.request.user
         return super().form_valid(form)

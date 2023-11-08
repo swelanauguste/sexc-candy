@@ -1,11 +1,16 @@
+{% if request.user.is_authenticated %}
+
 <div class="container sticky-top">
-    <header class="d-flex flex-wrap justify-content-evenly py-3 border-dark border-bottom" style="background-color: pink;">
+    <header
+        class="d-flex flex-wrap justify-content-evenly py-3 border-dark border-bottom"
+        style="background-color: pink;">
         <div>
             <a href="{% url 'letter-list' %}"
                 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-dark fw-bolder">
                 <span class="fs-4">Correspondence </span>
             </a>
         </div>
+
         <div class="col-lg-4 mx-auto">
             <form action=""
                 method="get">
@@ -16,7 +21,7 @@
                     placeholder="Search">
             </form>
         </div>
-        {% if request.user.is_authenticated %}
+
         <div class="dropdown text-end">
             <a href="#"
                 class="d-block text-decoration-none dropdown-toggle text-dark fw-bolder"
@@ -30,13 +35,6 @@
                         href="{% url 'account_logout' %}">Sign out</a></li>
             </ul>
         </div>
-        {% else %}
-        <div>
-            <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item"
-                        href="{% url 'account_login' %}">Sign in</a></li>
-            </ul>
-        </div>
-        {% endif %}
     </header>
 </div>
+{% endif %}

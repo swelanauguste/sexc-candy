@@ -7,7 +7,7 @@ class LetterCreateForm(forms.ModelForm):
     class Meta:
         model = Letter
         fields = "__all__"
-        exclude = ['created_by', 'updated_by', 'slug']
+        exclude = ["created_by", "updated_by", "slug"]
         widgets = {
             "dated": forms.TextInput(attrs={"type": "date"}),
             "received": forms.TextInput(attrs={"type": "date"}),
@@ -15,11 +15,12 @@ class LetterCreateForm(forms.ModelForm):
             # "copied_to": forms.Select(attrs={"multiple": "multiple"}),
         }
 
+
 class LetterUpdateForm(forms.ModelForm):
     class Meta:
         model = Letter
         fields = "__all__"
-        exclude = ['created_by', 'updated_by', 'slug']
+        exclude = ["created_by", "updated_by", "slug"]
         widgets = {
             "date_on_doc": forms.TextInput(attrs={"type": "date"}),
             "date_received": forms.TextInput(attrs={"type": "date"}),
@@ -28,11 +29,21 @@ class LetterUpdateForm(forms.ModelForm):
         }
 
 
+class LetterCommentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = LetterComment
+        fields = ["letter", "comment"]
+        widgets = {
+            "comment": forms.Textarea(attrs={"rows": 3}),
+            "letter": forms.HiddenInput(),
+        }
+
+
 class LetterCommentCreateForm(forms.ModelForm):
     class Meta:
         model = LetterComment
         fields = ["comment"]
-        exclude = ['created_by', 'updated_by']
+        exclude = ["created_by", "updated_by"]
         widgets = {
             "comment": forms.Textarea(attrs={"rows": 3}),
         }
