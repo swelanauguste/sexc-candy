@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "minio_storage",
     "users",
     "letters",
+    "statuses",
 ]
 
 MIDDLEWARE = [

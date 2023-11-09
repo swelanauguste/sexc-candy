@@ -100,6 +100,16 @@
     {% block scripts %}
 
     {% endblock scripts %}
+    <script>
+        $(".form-control").addClass("form-control-sm rounded-4");
+        $(".form-select").addClass("form-control-sm rounded-4");
+        document.getElementById('id_received').addEventListener('change', function () {
+            var receivedDate = new Date(this.value);
+            var expiringDate = new Date(receivedDate.getFullYear() + 2, receivedDate.getMonth(), receivedDate.getDate());
+            var expiringDateInput = document.getElementById('id_expires');
+            expiringDateInput.valueAsDate = expiringDate;
+        });
+    </script>
 </body>
 
 </html>

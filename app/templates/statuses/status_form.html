@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+Add
+{% endblock head_title %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="col-lg-4 shadow p-5 rounded-4 mx-auto">
+        <h1>{{object}}</h1>
+        <hr>
+        <form action=""
+            method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+            <div class="d-grid">
+                <button class="btn btn-outline-dark rounded-pill"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

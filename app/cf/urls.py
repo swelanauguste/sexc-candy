@@ -4,9 +4,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("", include("letters.urls")),
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
+    path("", include("letters.urls")),
+    path("application-status/", include("statuses.urls")),
+    
 ]
 
 handler404 = "letters.views.my_custom_page_not_found_view"

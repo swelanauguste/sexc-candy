@@ -76,6 +76,16 @@ Correspondence
         </div>
         <div class="col my-5"
             style="height: 45rem;overflow-y:scroll;">
+            <div class="col-lg-8 mx-auto my-4">
+                <form action=""
+                    method="get">
+                    <input class="form-control rounded-pill"
+                        type="search"
+                        name="letters"
+                        id="id_letters_search"
+                        placeholder="Search correspondence">
+                </form>
+            </div>
             {% for letter in letters %}
             <div class="col-lg-8 mb-4 mx-auto p-3 rounded-4 border-dark border"
                 style="background-color: pink;">

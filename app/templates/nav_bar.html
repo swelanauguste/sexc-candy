@@ -1,40 +1,70 @@
 {% if request.user.is_authenticated %}
-
-<div class="container sticky-top">
-    <header
-        class="d-flex flex-wrap justify-content-evenly py-3 border-dark border-bottom"
-        style="background-color: pink;">
-        <div>
-            <a href="{% url 'letter-list' %}"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-dark fw-bolder">
-                <span class="fs-4">Correspondence </span>
-            </a>
-        </div>
-
-        <div class="col-lg-4 mx-auto">
-            <form action=""
-                method="get">
-                <input class="form-control rounded-pill"
-                    type="search"
-                    name="letters"
-                    id="id_letters_search"
-                    placeholder="Search">
-            </form>
-        </div>
-
-        <div class="dropdown text-end">
-            <a href="#"
-                class="d-block text-decoration-none dropdown-toggle text-dark fw-bolder"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <span
-                    class="rounded-circle bg-danger bg-opacity-10 py-1 px-2 border border-4 border-white ms-5">{{request.user.profile.get_profile_initials|upper}}</span>
-            </a>
-            <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item"
-                        href="{% url 'account_logout' %}">Sign out</a></li>
+<nav class="navbar navbar-expand-lg sticky-top shadow"
+    style="background-color: pink;">
+    <div class="container">
+        <a class="navbar-brand"
+            href="/">Correspondence</a>
+        <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"
+            id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                        aria-current="page"
+                        href="{% url 'status-list' %}">Applications</a>
+                </li>
+                <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li> -->
+                <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                    href="#">Action</a></li>
+                            <li><a class="dropdown-item"
+                                    href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled"
+                            aria-disabled="true">Disabled</a>
+                    </li> -->
             </ul>
+
+            <div class="dropdown text-end">
+                <a href="#"
+                    class="d-block text-decoration-none dropdown-toggle text-dark fw-bolder"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span
+                        class="rounded-circle bg-danger bg-opacity-10 py-1 px-2 border border-4 border-white ms-5">{{request.user.profile.get_profile_initials|upper}}</span>
+                </a>
+                <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item"
+                            href="{% url 'account_logout' %}">Sign out</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
-</div>
+    </div>
+</nav>
 {% endif %}
