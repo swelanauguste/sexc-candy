@@ -15,10 +15,6 @@ class StatusCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("status-list")
 
 
-class StatusDetailView(LoginRequiredMixin, DetailView):
-    model = Status
-
-
 class StatusListView(LoginRequiredMixin,ListView):
     model = Status
     extra_context = {"form": StatusForm}
