@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -121,11 +121,12 @@ def letter_detail_view(request, slug):
     Show a letter.
     """
     letter = Letter.objects.get(slug=slug)
+    comment_form = LetterCommentCreateForm()
     # comments = LetterComments.objects.filter(letter=letter)
     return render(
         request,
         "letters/letter_detail.html",
-        {"letter": letter, "comments": "comments"},
+        {"letter": letter, "comments": "comments", "comment_form": comment_form},
     )
 
 
@@ -144,7 +145,8 @@ def letter_comment_create_view(request, slug):
                 request,
                 f"Your comment was added.",
             )
-            return redirect("letter-list")
+            letter_detail_url = reverse("letter-detail", args=[letter.slug])
+            return redirect(letter_detail_url)
     else:
         form = LetterCreateForm()
     return render(request, "letters/letter_list.html", {"form": form, "letter": letter})
