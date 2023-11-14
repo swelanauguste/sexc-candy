@@ -56,7 +56,7 @@ class Letter(models.Model):
     )
 
     class meta:
-        ordering = ["-date_received"]
+        ordering = ["-created"]
 
     def get_absolute_url(self):
         return reverse("letter-detail", kwargs={"slug": self.slug})
