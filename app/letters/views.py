@@ -71,7 +71,7 @@ def letter_list_view(request):
             | Q(subject__icontains=query)
         ).distinct()
     else:
-        letters = Letter.objects.all().order_by("-created")
+        letters = Letter.objects.all()
     return render(
         request,
         "letters/letter_list.html",

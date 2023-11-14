@@ -151,17 +151,10 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Email_settings
 #######################
 
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-    EMAIL_FILE_PATH = "emails"
-else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = "smtp.gmail.com"
-    EMAIL_HOST_USER = os.environ.get("EMAIL")
-    EMAIL_HOST_PASSWORD = os.environ.get("PASS")
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = False
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = "emails"
+
 
 
 ######################

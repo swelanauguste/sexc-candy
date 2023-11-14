@@ -9,6 +9,7 @@ class Status(models.Model):
     
     class Meta:
         ordering = ('-expires',)
+        verbose_name_plural = 'statuses'
 
     def __str__(self):
         return self.name
