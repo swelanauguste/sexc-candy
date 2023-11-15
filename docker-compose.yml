@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   web:
@@ -22,6 +22,7 @@ services:
       - POSTGRES_USER=candy
       - POSTGRES_PASSWORD=candy
       - POSTGRES_DB=candy
+    restart: unless-stopped
 
 volumes:
   postgres_data:
